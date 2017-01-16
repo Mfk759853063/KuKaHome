@@ -1,0 +1,1 @@
+select * from active where (select sale_id from product where sale_id = 2)
