@@ -57,4 +57,10 @@ var routes = Routes{
 		Pattern:     "/login",
 		HandlerFunc: handler.Login,
 	},
+	Route{
+		Name:        "uploadFile",
+		Method:      []string{"POST"},
+		Pattern:     "/uploadFile",
+		HandlerFunc: handler.UploadFile,
+	},
 }
