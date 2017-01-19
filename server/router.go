@@ -1,6 +1,8 @@
-package main
+package server
 
 import (
+	"KuKaHome/handler"
+	"KuKaHome/helper"
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -10,11 +12,14 @@ func NewRouter() *mux.Router {
 
 	router := mux.NewRouter().StrictSlash(true)
 	for _, route := range routes {
+		var handler http.Handler
+		handler = route.HandlerFunc
+		handler = helper.Logger(handler, route.Name)
 		router.
-			Methods(route.Method).
+			Methods(route.Method...).
 			Path(route.Pattern).
 			Name(route.Name).
-			Handler(route.HandlerFunc)
+			Handler(handler)
 	}
 
 	return router
@@ -26,7 +31,7 @@ func TEST() {
 
 type Route struct {
 	Name        string
-	Method      string
+	Method      []string
 	Pattern     string
 	HandlerFunc http.HandlerFunc
 }
@@ -36,14 +41,20 @@ type Routes []Route
 var routes = Routes{
 	Route{
 		Name:        "Index",
-		Method:      "GET",
+		Method:      []string{"GET"},
 		Pattern:     "/",
-		HandlerFunc: Index,
+		HandlerFunc: handler.Index,
 	},
 	Route{
 		Name:        "productlist",
-		Method:      "GET",
+		Method:      []string{"GET"},
 		Pattern:     "/productlist",
-		HandlerFunc: productlist,
+		HandlerFunc: handler.Productlist,
+	},
+	Route{
+		Name:        "login",
+		Method:      []string{"GET"},
+		Pattern:     "/login",
+		HandlerFunc: handler.Login,
 	},
 }

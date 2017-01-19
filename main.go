@@ -1,8 +1,12 @@
 package main
 
+import (
+	"KuKaHome/ORM"
+	"KuKaHome/server"
+)
+
 func main() {
-	db := OpenSQL()
-	defer CloseSQL(db)
-	TestDB(db)
-	Run()
+	db := ORM.OpenSQL()
+	defer ORM.CloseSQL(db)
+	server.Run()
 }
