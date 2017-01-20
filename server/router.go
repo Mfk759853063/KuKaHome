@@ -63,4 +63,10 @@ var routes = Routes{
 		Pattern:     "/uploadFile",
 		HandlerFunc: handler.UploadFile,
 	},
+	Route{
+		Name:        "getFile",
+		Method:      []string{"GET"},
+		Pattern:     "/getFile/{imgPath}",
+		HandlerFunc: handler.DownloadFile,
+	},
 }
